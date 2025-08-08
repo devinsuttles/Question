@@ -33,22 +33,18 @@ const parseWords = (sentence) => {
     if (sentence.length === 0) {
         return '';
     }
-    
-    let regex = /([a-zA-Z]+|[^a-zA-Z])/g;
-    let array = sentence.match(regex);
-    
-    let transformedParts = array.map(word => {
-        if (/^[a-zA-Z]$/.test(word)) {
-            return wordTransformer(word);
-        }
-        return word;
-    });
 
-    return transformedParts.join('');
+    return sentence.split(/(\W+)/).map(word => {
+        if (!/^[a-zA-Z]+$/.test(word)) {
+            return word;
+        }
+        return wordTransformer(word);
+    }).join('');
 };
 
 
 // Test cases
+//return the transformed sentence
 console.log(parseWords("Smooth"));
 console.log(parseWords("A smooth criminal!"));
 console.log(parseWords("Go chiefs Go!!!!"));
